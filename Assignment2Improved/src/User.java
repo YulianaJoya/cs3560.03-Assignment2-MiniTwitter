@@ -2,6 +2,8 @@ import java.util.*;
 
 public class User extends Subject implements Observer{
    private String id;
+   private long creationTime;
+   private long lastUpdate;
    private ArrayList<String> messages;
    private ArrayList<String> positiveMessages;
    private ArrayList<String> newsFeed = new ArrayList<>(Arrays.asList());
@@ -9,7 +11,7 @@ public class User extends Subject implements Observer{
    private ArrayList<User> following;
    private ArrayList<User> u;
 
-   User(String id){
+   User(String id, long creationTime){
        this.id = id;
        followers = new ArrayList<User>();
        following = new ArrayList<User>();
@@ -17,6 +19,17 @@ public class User extends Subject implements Observer{
        u = new ArrayList<User>();
    }
 
+   public long getCreationTime(){
+      return creationTime;
+   }
+
+   public long getLastUpdate(){
+      return lastUpdate;
+   }
+
+   public void setUpdateTime(){
+      lastUpdate = System.currentTimeMillis();
+   }
    public void setId(String id){
        this.id = id;
    }
