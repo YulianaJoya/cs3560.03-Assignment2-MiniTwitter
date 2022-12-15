@@ -14,7 +14,7 @@ public class ControlPanel extends JFrame implements Composite{
    private static ControlPanel instance = new ControlPanel();
 
    private JPanel panel1;
-   private JButton addGroup, addUser, totalUser, totalGroup, showPositive, showMessage, openView;
+   private JButton addGroup, addUser, totalUser, totalGroup, showPositive, showMessage, openView, idValid, updatedUser;
    private JTextArea uname;
    private JTextArea gname;
    private JTree coconutTree = new JTree();
@@ -76,11 +76,29 @@ public class ControlPanel extends JFrame implements Composite{
       gname.setBounds(310, 120, 170, 80);
       this.add(gname);
 
+      idValid = new JButton("Id Validation");
+      idValid.addActionListener(new ActionListener(){
+         public void actionPerformed(ActionEvent e){
+            JOptionPane.showMessageDialog(null, "Invalid Id: ", "", 1, null);
+         }
+      });
+      idValid.setBounds(310, 320, 170, 80);
+      this.add(idValid);
+
+      updatedUser = new JButton("Last Updated User");
+      updatedUser.addActionListener(new ActionListener(){
+         public void actionPerformed(ActionEvent e){
+            JOptionPane.showMessageDialog(null, "Last Updated User: ", "", 1, null);
+         }
+      });
+      updatedUser.setBounds(500, 320, 170, 80);
+      this.add(updatedUser);
+
       //Button to add a user
       addUser = new JButton("Add User");
       addUser.addActionListener(new ActionListener(){
          public void actionPerformed(ActionEvent e){
-            User newUser = new User(uname.getText());
+            User newUser = new User(uname.getText(), System.currentTimeMillis());
             users.add(newUser);
             DefaultTreeModel model = (DefaultTreeModel) coconutTree.getModel();
             DefaultMutableTreeNode sNode = (DefaultMutableTreeNode) coconutTree.getLastSelectedPathComponent();
@@ -124,7 +142,7 @@ public class ControlPanel extends JFrame implements Composite{
          public void actionPerformed(ActionEvent e){
             DefaultMutableTreeNode sNode = (DefaultMutableTreeNode) coconutTree.getLastSelectedPathComponent();
             String name = (String) sNode.getUserObject();
-            User thisUser = new User(name);
+            User thisUser = new User(name, System.currentTimeMillis());
             UserView selected = new UserView(thisUser);
             selected.display();
          }
